@@ -66,7 +66,6 @@ export const  useAuthStore = defineStore("auth", {
                 await axios.post('/forgot-password', {
                     email: email
                 })
-                this.authUser = null;
             } catch (e) {
                 if (e.response.status === 422) {
                     this.authErrors = e.response.data.errors
@@ -80,6 +79,7 @@ export const  useAuthStore = defineStore("auth", {
             try {
                 await axios.post('/reset-password', resetData)
                 this.authUser = null;
+                await this.router.push("/login")
             } catch (e) {
                 if (e.response.status === 422) {
                     this.authErrors = e.response.data.errors
